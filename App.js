@@ -9,10 +9,11 @@ import {
 } from 'react-native';
 import { useState } from 'react';
 import GoalItem from './components/GoalItem';
-import { GoalInput } from './components/GoalInput';
+import { AddGoalModal } from './components/AddGoalModal';
 
 export default function App() {
   const [goalList, setGoalList] = useState([]);
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
   // const [goalList, setGoalList] = useState(
   //   Array.from({ length: 1000 }, (_, i) => `Goal ${i + 1}`)
   // );
@@ -24,16 +25,43 @@ export default function App() {
     setGoalList((currentGoalList) => [...currentGoalList, newGoal]);
   };
 
+  const deleteGoalHandler = (goalId) => {
+    setGoalList((currentGoalList) =>
+      currentGoalList.filter((_, idx) => idx !== goalId)
+    );
+  };
+
+  const openModalHandler = () => {
+    setIsVisibleModal(true);
+  };
+
+  const closeModalHandler = () => {
+    setIsVisibleModal(false);
+  };
+
   return (
     <View style={styles.appContainer}>
-      <GoalInput onNewGoal={newGoalHandler} />
+      <Button title="Add New Goal" color="#00ADEF" onPress={openModalHandler} />
+      <AddGoalModal
+        isVisible={isVisibleModal}
+        onNewGoal={newGoalHandler}
+        onCancel={closeModalHandler}
+      />
       <View style={styles.goalListContainer}>
         <Text style={styles.h1}>List of goals</Text>
         <View>
           <FlatList
             data={goalList}
             renderItem={({ item, index }) => {
-              return <GoalItem key={index} item={item} />;
+              return (
+                <GoalItem
+                  index={index}
+                  item={item}
+                  onPress={() => {
+                    deleteGoalHandler(index);
+                  }}
+                />
+              );
             }}
             keyExtractor={(item, idx) => `${item}-${idx}`}
           />

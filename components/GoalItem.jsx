@@ -1,9 +1,19 @@
-import { StyleSheet, Text } from 'react-native';
-export const GoalItem = ({ index, item }) => {
+import { StyleSheet, Text, Pressable } from 'react-native';
+export const GoalItem = ({ index, item, onPress }) => {
+  const deleteGoalhandler = () => {
+    onPress();
+  };
+
   return (
-    <Text key={`${index}`} style={styles.goalItem}>
-      {item}
-    </Text>
+    <Pressable
+      android_ripple={{ color: 'blue', radius: 2.5 }}
+      onPress={deleteGoalhandler}
+      style={({ pressed }) => (pressed ? { opacity: 0.5 } : null)}
+    >
+      <Text key={`${index}`} style={styles.goalItem}>
+        {item}
+      </Text>
+    </Pressable>
   );
 };
 

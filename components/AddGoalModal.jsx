@@ -1,4 +1,12 @@
-import { Button, StyleSheet, Text, TextInput, View, Modal } from 'react-native';
+import {
+  Button,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  Modal,
+  Dimensions,
+} from 'react-native';
 
 import { useState } from 'react';
 
@@ -45,6 +53,7 @@ export const AddGoalModal = ({ isVisible, onNewGoal, onCancel }) => {
   );
 };
 
+const screenWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   h1: {
     fontSize: 24,
@@ -54,12 +63,13 @@ const styles = StyleSheet.create({
   },
 
   modalContainer: {
+    width: screenWidth,
     flex: 1,
     padding: 36,
   },
 
   inputContainer: {
-    flexGrow: 1,
+    flex: 1,
     justifyContent: 'center',
     gap: 20,
   },
@@ -79,6 +89,5 @@ const styles = StyleSheet.create({
   button: {
     flexBasis: '40%',
     flexGrow: 0,
-    flexShrink: 1,
   },
 });

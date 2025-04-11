@@ -73,12 +73,12 @@ export default function App() {
 
 const styles = StyleSheet.create({
   appContainer: {
+    flex: 1,
+
     backgroundColor: 'white',
 
     padding: 80,
     paddingHorizontal: 16,
-
-    flex: 1,
   },
 
   h1: {

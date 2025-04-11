@@ -10,6 +10,7 @@ import {
 import { useState } from 'react';
 import GoalItem from './components/GoalItem';
 import { AddGoalModal } from './components/AddGoalModal';
+import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
   const [goalList, setGoalList] = useState([]);
@@ -40,34 +41,49 @@ export default function App() {
   };
 
   return (
-    <View style={styles.appContainer}>
-      <Button title="Add New Goal" color="#00ADEF" onPress={openModalHandler} />
-      <AddGoalModal
-        isVisible={isVisibleModal}
-        onNewGoal={newGoalHandler}
-        onCancel={closeModalHandler}
-      />
-      <View style={styles.goalListContainer}>
-        <Text style={styles.h1}>List of goals</Text>
-        <View>
-          <FlatList
-            data={goalList}
-            renderItem={({ item, index }) => {
-              return (
-                <GoalItem
-                  index={index}
-                  item={item}
-                  onPress={() => {
-                    deleteGoalHandler(index);
-                  }}
-                />
-              );
+    <>
+      <StatusBar style="auto" />
+      <View style={styles.appContainer}>
+        <Button
+          title="Add New Goal"
+          color="#00ADEF"
+          onPress={openModalHandler}
+        />
+        <AddGoalModal
+          isVisible={isVisibleModal}
+          onNewGoal={newGoalHandler}
+          onCancel={closeModalHandler}
+        />
+        <View style={styles.goalListContainer}>
+          <Text
+            style={{
+              ...styles.h1,
+              textTransform: 'uppercase',
+              textAlign: 'center',
             }}
-            keyExtractor={(item, idx) => `${item}-${idx}`}
-          />
+          >
+            List of goals
+          </Text>
+          <View>
+            <FlatList
+              data={goalList}
+              renderItem={({ item, index }) => {
+                return (
+                  <GoalItem
+                    index={index}
+                    item={item}
+                    onPress={() => {
+                      deleteGoalHandler(index);
+                    }}
+                  />
+                );
+              }}
+              keyExtractor={(item, idx) => `${item}-${idx}`}
+            />
+          </View>
         </View>
       </View>
-    </View>
+    </>
   );
 }
 
@@ -75,27 +91,28 @@ const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
 
-    backgroundColor: 'white',
-
     padding: 80,
     paddingHorizontal: 16,
   },
 
   h1: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: 'bold',
-    color: '#000028',
+    color: 'white',
     marginBottom: 8,
   },
 
   h2: {
     fontSize: 22,
     fontWeight: 'bold',
+
     color: '#000028',
   },
 
   goalListContainer: {
     flex: 6,
+
+    marginTop: 40,
     paddingVertical: 10,
   },
 });

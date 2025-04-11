@@ -6,6 +6,7 @@ import {
   View,
   Modal,
   Dimensions,
+  Image,
 } from 'react-native';
 
 import { useState } from 'react';
@@ -30,7 +31,7 @@ export const AddGoalModal = ({ isVisible, onNewGoal, onCancel }) => {
     <Modal visible={isVisible} animationType="slide">
       <View style={styles.modalContainer}>
         <Text style={styles.h1}>Add new goal</Text>
-
+        <Image style={styles.image} source={require('../assets/goal.png')} />
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.textInput}
@@ -55,22 +56,35 @@ export const AddGoalModal = ({ isVisible, onNewGoal, onCancel }) => {
 
 const screenWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
-  h1: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#000028',
-    marginBottom: 8,
-  },
-
   modalContainer: {
+    backgroundColor: '#008BBF',
     width: screenWidth,
+
     flex: 1,
+    alignItems: 'center',
+
     padding: 36,
   },
 
-  inputContainer: {
+  h1: {
+    fontSize: 30,
+    fontWeight: 'bold',
+
+    color: 'white',
+    marginBottom: 8,
+
     flex: 1,
-    justifyContent: 'center',
+  },
+
+  image: {
+    width: 100,
+    height: 100,
+    marginBottom: 20,
+  },
+
+  inputContainer: {
+    flex: 1.5,
+    justifyContent: 'flex-start',
     gap: 20,
   },
 
